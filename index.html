@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estel Serviços - Dashboard Profissional</title>
+    <title>Estel Serviços - Dashboard Gerencial</title>
     <style>
         * {
             margin: 0;
@@ -119,10 +119,36 @@
             height: 100%;
             overflow: hidden;
             position: relative;
-            background-image: url('img/estel/estel_3.jpg');
+            background-image: url('img/estel/estel_4.jpg');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
+        }
+
+        .bemvindo {
+            display: none;
+            padding: 24px;
+            animation: fadeIn 0.5s ease-in-out;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            background-image: url('img/estel/estel_5.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;  
+        }
+        
+        .obrigado {
+            display: none;
+            padding: 24px;
+            animation: fadeIn 0.5s ease-in-out;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            background-image: url('img/estel/estel_7.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;  
         }
 
         .slide.active {
@@ -226,6 +252,7 @@
         .images-section {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             gap: 12px;
             height: 100%;
         }
@@ -790,8 +817,14 @@
 
         <!-- Slides -->
         <div class="slide-container">
+
+            <!-- Bem Vindo -->
+            <div class="slide bemvindo active">
+
+            </div>
+
             <!-- Slide 1: Segurança -->
-            <div class="slide active">
+            <div class="slide">
                 <div class="slide-header">
                     <h1 class="slide-title">Segurança do Trabalho</h1>
                 </div>
@@ -1345,7 +1378,14 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Obrigado -->
+            <div class="slide obrigado">
+
+            </div>   
+
         </div>
+    
 
         <!-- Navigation dots -->
         <div class="progress-dots">
@@ -1356,6 +1396,8 @@
             <span class="dot" onclick="goToSlide(4)"></span>
             <span class="dot" onclick="goToSlide(5)"></span>
             <span class="dot" onclick="goToSlide(6)"></span>
+            <span class="dot" onclick="goToSlide(7)"></span>
+            <span class="dot" onclick="goToSlide(8)"></span>
         </div>
     </div>
 
@@ -1408,7 +1450,7 @@
         }
 
         // Auto advance
-        setInterval(nextSlide, 250000);
+        setInterval(nextSlide, 60000);
 
         // Keyboard navigation
         document.addEventListener('keydown', function(e) {
