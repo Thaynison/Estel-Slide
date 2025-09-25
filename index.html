@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estel Serviços - Dashboard Profissional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-image: url('estel_2.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100vh;
+            overflow: hidden;
+            color: #334155;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .company-name {
+            color: #002c59;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .slide-counter {
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .nav-btn {
+            background: #017e84;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #015a5f;
+        }
+
+        /* Slide container */
+        .slide-container {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .slide {
+            display: none;
+            padding: 24px;
+            animation: fadeIn 0.5s ease-in-out;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            background-image: url('estel_3.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Slide header */
+        .slide-header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .slide-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .slide-title {
+            color: #e41a28;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.025em;
+        }
+
+        .slide-subtitle {
+            color: #64748b;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Content layout */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 20px 0;
+            align-items: center;
+            height: calc(100vh - 300px);
+        }
+
+        .text-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .text-section h3 {
+            color: #002c59;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .text-section p {
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .mini-stats {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .mini-stat {
+            background: linear-gradient(135deg, #017e84 0%, #00a7a8 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .mini-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .mini-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .images-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+        }
+
+        .safety-image {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            height: 180px;
+            min-height: 180px;
+            max-height: 180px;
+        }
+
+        .safety-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .placeholder-img {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #017e84 0%, #00a7a8 100%);
+            color: white;
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: calc(100% - 48px);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #017e84 0%, #00a7a8 100%);
+            color: white;
+            padding: 20px 16px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* Chart section */
+        .chart-section {
+            background: rgba(248, 250, 252, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 12px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Timeline section */
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-header {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 12px;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .timeline-label {
+            font-weight: 600;
+            color: #002c59;
+            font-size: 0.85rem;
+        }
+
+        .timeline-months {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+        }
+
+        .month {
+            text-align: center;
+            font-weight: 500;
+            color: #475569;
+            background: #f8fafc;
+            padding: 4px 2px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 12px;
+            margin: 3px 0;
+            align-items: center;
+        }
+
+        .timeline-project {
+            font-weight: 500;
+            color: #334155;
+            padding: 2px 0;
+            font-size: 0.8rem;
+            line-height: 1.2;
+        }
+
+        .timeline-bar-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            height: 18px;
+        }
+
+        .timeline-bar {
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-bar.full-span {
+            grid-column: 1 / -1;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.october-only {
+            grid-column: 2 / 3;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        /* Timeline bars por mês específico */
+        .timeline-bar.setembro {
+            grid-column: 1 / 2;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.outubro {
+            grid-column: 2 / 3;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.novembro {
+            grid-column: 3 / 4;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.dezembro {
+            grid-column: 4 / 5;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.janeiro {
+            grid-column: 5 / 6;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        /* Combinações de meses */
+        .timeline-bar.setembro-outubro {
+            grid-column: 1 / 3;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.outubro-novembro {
+            grid-column: 2 / 4;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.setembro-novembro {
+            grid-column: 1 / 4;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.novembro-dezembro {
+            grid-column: 3 / 5;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.dezembro-janeiro {
+            grid-column: 4 / 6;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.setembro-dezembro {
+            grid-column: 1 / 5;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar.outubro-janeiro {
+            grid-column: 2 / 6;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+        }
+
+        .timeline-bar:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .chart-title {
+            color: #002c59;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .chart-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+
+        .chart-label {
+            width: 120px;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .chart-bar-bg {
+            flex: 1;
+            height: 24px;
+            background: #e2e8f0;
+            border-radius: 12px;
+            margin: 0 16px;
+            overflow: hidden;
+        }
+
+        .chart-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #017e84 0%, #00a7a8 100%);
+            border-radius: 12px;
+            transition: width 1.5s ease-out;
+        }
+
+        .chart-value {
+            font-weight: 600;
+            color: #475569;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: #017e84;
+            box-shadow: 0 4px 12px rgba(1, 126, 132, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .feature-title {
+            color: #002c59;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-description {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* Progress indicators */
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 12px;
+            flex-shrink: 0;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dot:hover {
+            background: #94a3b8;
+        }
+
+        .dot.active {
+            background: #017e84;
+            transform: scale(1.2);
+        }
+
+        /* HH Table Styles */
+        .hh-table-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .hh-table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hh-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.65rem;
+            background: white;
+            min-width: 800px;
+        }
+
+        .hh-table th {
+            background: linear-gradient(135deg, #017e84 0%, #00a7a8 100%);
+            color: white;
+            padding: 4px 2px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid #015a5f;
+            font-size: 0.6rem;
+            line-height: 1.2;
+        }
+
+        .function-header {
+            background: #002c59 !important;
+            writing-mode: horizontal-tb;
+            width: 100px;
+            min-width: 100px;
+            font-size: 0.65rem;
+        }
+
+        .hh-table td {
+            padding: 3px 2px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            font-size: 0.6rem;
+            line-height: 1.1;
+        }
+
+        .function-name {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #002c59;
+            text-align: left !important;
+            padding-left: 6px !important;
+            width: 100px;
+            min-width: 100px;
+            font-size: 0.6rem;
+        }
+
+        .total-row {
+            background: #f1f5f9;
+        }
+
+        .total-row td {
+            font-weight: 700;
+            border-top: 2px solid #017e84;
+            font-size: 0.65rem;
+        }
+
+        .total-row .function-name {
+            background: #017e84;
+            color: white;
+        }
+
+        .day-header {
+            font-size: 0.55rem !important;
+            padding: 2px 1px !important;
+        }
+
+        .shift-header {
+            font-size: 0.5rem !important;
+            padding: 2px 1px !important;
+        }
+
+        /* Two column layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 16px 0;
+        }
+
+        .column {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .column h3 {
+            color: #002c59;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .slide {
+                padding: 32px 24px;
+            }
+
+            .slide-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid, .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-layout {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .mini-stats {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .images-section {
+                flex-direction: row;
+                gap: 12px;
+            }
+
+            .safety-image {
+                height: 150px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-label {
+                width: 80px;
+                font-size: 0.9rem;
+            }
+
+            .timeline-header, .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .timeline-project {
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+            }
+
+            .timeline-months {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 4px;
+            }
+
+            .month {
+                font-size: 0.8rem;
+                padding: 6px 2px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide-title {
+                font-size: 1.75rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="logo.png" alt="Estel Serviços" onerror="this.style.display='none'; this.parentElement.innerHTML='E'; this.parentElement.style.background='#e41a28'; this.parentElement.style.color='white'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.fontSize='1.5rem'; this.parentElement.style.fontWeight='700';">
+                </div>
+                <div class="company-name">ESTEL SERVIÇOS - CONTRATO SUZANO MECÂNICA</div>
+            </div>
+            <div class="nav-controls">
+                <div class="slide-counter">
+                    <span id="currentSlide">1</span> / <span id="totalSlides">6</span>
+                </div>
+                <button class="nav-btn" onclick="previousSlide()">‹</button>
+                <button class="nav-btn" onclick="nextSlide()">›</button>
+            </div>
+        </header>
+
+        <!-- Slides -->
+        <div class="slide-container">
+            <!-- Slide 1: Segurança -->
+            <div class="slide active">
+                <div class="slide-header">
+                    <h1 class="slide-title">Segurança do Trabalho</h1>
+                </div>
+
+                <div class="content-layout">
+                    <div class="text-section">
+                        <h3>Compromisso com a Segurança</h3>
+                        <p>Na Estel Serviços, a segurança do trabalho é nossa prioridade absoluta. Implementamos protocolos rigorosos e mantemos os mais altos padrões de proteção para garantir que todos os nossos colaboradores retornem seguros para casa todos os dias.</p>
+                        <p>Nossa abordagem proativa inclui treinamentos constantes, uso obrigatório de EPIs certificados e monitoramento contínuo de todas as atividades operacionais.</p>
+                        
+                        <div class="mini-stats">
+                            <div class="mini-stat">
+                                <div class="mini-stat-number">365+</div>
+                                <div class="mini-stat-label">Dias sem acidentes</div>
+                            </div>
+                            <div class="mini-stat">
+                                <div class="mini-stat-number">100%</div>
+                                <div class="mini-stat-label">Conformidade</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="images-section">
+                        <div class="safety-image">
+                            <img src="img/img_1.jpeg" alt="Equipe de segurança" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>👷‍♂️<br>Equipe<br>Segurança</div>';">
+                        </div>
+                        <div class="safety-image">
+                            <img src="img/img_2.jpeg" alt="EPIs e equipamentos" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>🦺<br>EPIs<br>Certificados</div>';">
+                        </div>
+                        <div class="safety-image">
+                            <img src="img/img_3.jpeg" alt="Treinamento de segurança" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>📋<br>Treinamentos<br>Segurança</div>';">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Planejamento -->
+            <div class="slide">
+                <div class="slide-header">
+                    <h1 class="slide-title">Gestão de Projetos</h1>
+                </div>
+
+                <div class="timeline-section">
+                    
+                    <div class="timeline-header">
+                        <div class="timeline-label">Projeto</div>
+                        <div class="timeline-months" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="month">Set</div>
+                            <div class="month">Out</div>
+                            <div class="month">Nov</div>
+                            <div class="month">Dez</div>
+                            <div class="month">Jan</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">Tanque LBS</div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar setembro-dezembro"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PG Secagem B</div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PG Caldeira C Refatrômetro</div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PP Pátio de Madeira Linha 5</div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PG Linha de Fibras Bypass</div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PG Linha de Fibras Apoio Mecânica</div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">Linha de Fibras Linha de Vapor</div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar setembro-outubro"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-project">Linha de Fibras Linha de Vaporização</div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar setembro-novembro"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">Linha de Fibras Adtivo Linha de Vapor</div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar outubro-janeiro"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">9</div>
+                        <div class="stat-label">Projetos principais</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Meses de execução</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Serviços -->
+            <div class="slide">
+                <div class="slide-header">
+                    <h1 class="slide-title">Serviços em Execução</h1>
+                </div>
+
+                <div class="content-layout">
+                    <div class="images-section">
+                        <div class="safety-image">
+                            <img src="img/img_4.jpeg" alt="Manutenção Industrial" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>🔧<br>Manutenção<br>Industrial</div>';">
+                        </div>
+                        <div class="safety-image">
+                            <img src="img/img_5.jpeg" alt="Instalações Técnicas" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>⚙️<br>Instalações<br>Técnicas</div>';">
+                        </div>
+                        <div class="safety-image">
+                            <img src="img/img_6.jpeg" alt="Consultoria Especializada" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>💼<br>Consultoria<br>Especializada</div>';">
+                        </div>
+                    </div>
+                    
+                    <div class="text-section">
+                        <h3>Excelência em Serviços</h3>
+                        <p>Oferecemos soluções completas em manutenção industrial, instalações técnicas e consultoria especializada. Nossa equipe altamente qualificada garante a máxima eficiência e qualidade em cada projeto executado.</p>
+                        <p>Com mais de uma década de experiência no mercado, desenvolvemos metodologias próprias que asseguram resultados superiores e total satisfação dos nossos clientes.</p>
+                        
+                        <div class="mini-stats">
+                            <div class="mini-stat">
+                                <div class="mini-stat-number">11</div>
+                                <div class="mini-stat-label">Serviços concluídos (no ano)</div>
+                            </div>
+                            <div class="mini-stat">
+                                <div class="mini-stat-number">98.7%</div>
+                                <div class="mini-stat-label">Satisfação cliente</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Slide 3: Serviços -->
+            <div class="slide">
+                <div class="slide-header">
+                    <h1 class="slide-title">Preparativos em Execução</h1>
+                </div>
+
+                <div class="content-layout">
+                    <div class="images-section">
+                        <div class="safety-image">
+                            <img src="img/img_7.jpeg" alt="Manutenção Industrial" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>🔧<br>Manutenção<br>Industrial</div>';">
+                        </div>
+                        <div class="safety-image">
+                            <img src="img/img_8.jpeg" alt="Manutenção Industrial" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>🔧<br>Manutenção<br>Industrial</div>';">
+                        </div>
+                        <div class="safety-image">
+                            <img src="img/img_9.jpeg" alt="Manutenção Industrial" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>🔧<br>Manutenção<br>Industrial</div>';">
+                        </div>
+                    </div>
+                    
+                    <div class="images-section">
+                        <div class="safety-image">
+                            <img src="img/img_10.jpeg" alt="Manutenção Industrial" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>🔧<br>Manutenção<br>Industrial</div>';">
+                        </div>
+                        <div class="safety-image">
+                            <img src="img/img_11.jpeg" alt="Manutenção Industrial" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>🔧<br>Manutenção<br>Industrial</div>';">
+                        </div>
+                        <div class="safety-image">
+                            <img src="img/img_12.jpeg" alt="Manutenção Industrial" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;placeholder-img&quot;>🔧<br>Manutenção<br>Industrial</div>';">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Slide 4: Equipe -->
+            <div class="slide">
+                <div class="slide-header">
+                    <h1 class="slide-title">Efetivo Previso - Outubro/2025</h1>
+                </div>
+
+                <div class="hh-table-section">
+                    <h3 class="chart-title">Planilha de (HH)</h3>
+                    <div class="hh-table-container">
+                        <table class="hh-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="3" class="function-header">FUNÇÃO</th>
+                                    <th colspan="2" class="day-header">06/10<br>SEG</th>
+                                    <th colspan="2" class="day-header">07/10<br>TER</th>
+                                    <th colspan="2" class="day-header">08/10<br>QUA</th>
+                                    <th colspan="2" class="day-header">09/10<br>QUI</th>
+                                    <th colspan="2" class="day-header">10/10<br>SEX</th>
+                                    <th colspan="2" class="day-header">11/10<br>SÁB</th>
+                                    <th colspan="2" class="day-header">12/10<br>DOM</th>
+                                </tr>
+                                <tr>
+                                    <th class="shift-header">D</th>
+                                    <th class="shift-header">N</th>
+                                    <th class="shift-header">D</th>
+                                    <th class="shift-header">N</th>
+                                    <th class="shift-header">D</th>
+                                    <th class="shift-header">N</th>
+                                    <th class="shift-header">D</th>
+                                    <th class="shift-header">N</th>
+                                    <th class="shift-header">D</th>
+                                    <th class="shift-header">N</th>
+                                    <th class="shift-header">D</th>
+                                    <th class="shift-header">N</th>
+                                    <th class="shift-header">D</th>
+                                    <th class="shift-header">N</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="function-name">Meio Oficial</td>
+                                    <td>5</td><td>2</td>
+                                    <td>5</td><td>2</td>
+                                    <td>5</td><td>2</td>
+                                    <td>5</td><td>2</td>
+                                    <td>5</td><td>2</td>
+                                    <td>5</td><td>2</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Caldeireiro/Encanador</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Soldador</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>44</td><td>14</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Mecânico Manutenção</td>
+                                    <td>15</td><td>8</td>
+                                    <td>15</td><td>8</td>
+                                    <td>15</td><td>8</td>
+                                    <td>15</td><td>8</td>
+                                    <td>15</td><td>8</td>
+                                    <td>15</td><td>8</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Eletricista</td>
+                                    <td>2</td><td>1</td>
+                                    <td>2</td><td>1</td>
+                                    <td>2</td><td>1</td>
+                                    <td>2</td><td>1</td>
+                                    <td>2</td><td>1</td>
+                                    <td>2</td><td>1</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Almoxarife</td>
+                                    <td>3</td><td>2</td>
+                                    <td>3</td><td>2</td>
+                                    <td>3</td><td>2</td>
+                                    <td>3</td><td>2</td>
+                                    <td>3</td><td>2</td>
+                                    <td>3</td><td>2</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Inspetor de Solda</td>
+                                    <td>1</td><td>-</td>
+                                    <td>1</td><td>-</td>
+                                    <td>1</td><td>-</td>
+                                    <td>1</td><td>-</td>
+                                    <td>1</td><td>-</td>
+                                    <td>1</td><td>-</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Técnico de Segurança</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Administrativo</td>
+                                    <td>1</td><td>0</td>
+                                    <td>1</td><td>0</td>
+                                    <td>1</td><td>0</td>
+                                    <td>1</td><td>0</td>
+                                    <td>1</td><td>0</td>
+                                    <td>1</td><td>0</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Encarregado Manutenção</td>
+                                    <td>13</td><td>4</td>
+                                    <td>13</td><td>4</td>
+                                    <td>13</td><td>4</td>
+                                    <td>13</td><td>4</td>
+                                    <td>13</td><td>4</td>
+                                    <td>13</td><td>4</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Planejador</td>
+                                    <td>2</td><td>0</td>
+                                    <td>2</td><td>0</td>
+                                    <td>2</td><td>0</td>
+                                    <td>2</td><td>0</td>
+                                    <td>2</td><td>0</td>
+                                    <td>2</td><td>0</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="function-name">Supervisor Manutenção</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>3</td><td>1</td>
+                                    <td>-</td><td>-</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td class="function-name"><strong>TOTAL</strong></td>
+                                    <td><strong>135</strong></td><td><strong>48</strong></td>
+                                    <td><strong>135</strong></td><td><strong>48</strong></td>
+                                    <td><strong>135</strong></td><td><strong>48</strong></td>
+                                    <td><strong>135</strong></td><td><strong>48</strong></td>
+                                    <td><strong>135</strong></td><td><strong>48</strong></td>
+                                    <td><strong>135</strong></td><td><strong>48</strong></td>
+                                    <td><strong>-</strong></td><td><strong>-</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">183 (Pessoas)</div>
+                        <div class="stat-label">Efetivo Total</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">23.369,36 (HH)</div>
+                        <div class="stat-label">Total de horas (PG - 06/10 a 17/10)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Performance -->
+            <div class="slide">
+                <div class="slide-header">
+                    <h1 class="slide-title">Indicadores de Faturamento</h1>
+                </div>
+
+                <div class="timeline-section">
+                    
+                    <div class="timeline-header">
+                        <div class="timeline-label">Projeto</div>
+                        <div class="timeline-months" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="month">Set</div>
+                            <div class="month">Out</div>
+                            <div class="month">Nov</div>
+                            <div class="month">Dez</div>
+                            <div class="month">Jan</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">Tanque LBS<br><small>R$ 577.730,69</small></div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar setembro-outubro"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PG Secagem B<br><small>R$ 691.362,63</small></div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PG Caldeira C Refratômetro<br><small>R$ 38.122,69</small></div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PP Pátio de Madeira Linha 5<br><small>R$ 1.954.852,70</small></div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PG Linha de Fibras Bypass<br><small>R$ 397.042,13</small></div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">PG Linha de Fibras Apoio Mecânica<br><small>R$ 112.385,85</small></div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar october-only"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">Linha de Fibras Linha de Vapor<br><small>R$ 75.851,65</small></div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar setembro-outubro"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">Linha de Fibras Linha de Vaporização<br><small>R$ 189.791,67</small></div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar setembro-novembro"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-project">Linha de Fibras Adtivo Linha de Vapor<br><small>R$ 412.992,89</small></div>
+                        <div class="timeline-bar-container" style="grid-template-columns: repeat(5, 1fr);">
+                            <div class="timeline-bar outubro-janeiro"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">R$ 4.450.132,9</div>
+                        <div class="stat-label">Valor total</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">R$ 1.647.122,49</div>
+                        <div class="stat-label">Projetado para Outubro</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Meses de faturamento</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Futuro -->
+            <div class="slide">
+                <div class="slide-header">
+                    <h1 class="slide-title">Projeção de Custo</h1>
+                </div>
+
+                <div class="chart-section">
+                    <h3 class="chart-title">Custos Projetados - Outubro 2025</h3>
+                    <div class="chart-item">
+                        <div class="chart-label">Transporte de Colaboradores</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar" style="width: 45%"></div>
+                        </div>
+                        <div class="chart-value">R$ 55.800</div>
+                    </div>
+                    <div class="chart-item">
+                        <div class="chart-label">Locação de Veículo</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar" style="width: 2.5%"></div>
+                        </div>
+                        <div class="chart-value">R$ 2.975</div>
+                    </div>
+                    <div class="chart-item">
+                        <div class="chart-label">Fornecimento de Gás</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar" style="width: 85%"></div>
+                        </div>
+                        <div class="chart-value">R$ 90.145</div>
+                    </div>
+
+                    
+                    <div class="chart-item">
+                        <div class="chart-label">Fornecimento de Consumivel</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar" style="width: 20%"></div>
+                        </div>
+                        <div class="chart-value">R$ 30.000</div>
+                    </div>
+
+                    <div class="chart-item">
+                        <div class="chart-label">Ferramental e Equipamentos</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar" style="width: 60%"></div>
+                        </div>
+                        <div class="chart-value">R$ 75.000</div>
+                    </div>
+
+                    <div class="chart-item">
+                        <div class="chart-label">Custo Gerais</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar" style="width: 5%"></div>
+                        </div>
+                        <div class="chart-value">R$ 5.000</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">R$ 258.920</div>
+                        <div class="stat-label">Total de custos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation dots -->
+        <div class="progress-dots">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+            <span class="dot" onclick="goToSlide(3)"></span>
+            <span class="dot" onclick="goToSlide(4)"></span>
+            <span class="dot" onclick="goToSlide(5)"></span>
+            <span class="dot" onclick="goToSlide(6)"></span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            setTimeout(animateCharts, 300);
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function previousSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            showSlide(currentSlideIndex);
+        }
+
+        function animateCharts() {
+            const activeSlide = document.querySelector('.slide.active');
+            const chartBars = activeSlide.querySelectorAll('.chart-bar');
+            
+            chartBars.forEach((bar, index) => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 200 + (index * 150));
+            });
+        }
+
+        // Auto advance
+        setInterval(nextSlide, 250000);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Touch support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    previousSlide();
+                }
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+        setTimeout(animateCharts, 800);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'984b39bac69cf1f6',t:'MTc1ODgxMDY4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
